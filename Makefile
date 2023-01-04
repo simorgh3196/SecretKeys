@@ -22,13 +22,13 @@ lint:
 format:
 	mint run swiftlint --fix Sources Tests
 
-.build/debug/secret-keys: Sources/**/*.swift
+.build/debug/secret-keys: Package.swift Sources/**/*.swift
 	swift build
 
-.build/release/secret-keys: Sources/**/*.swift
+.build/release/secret-keys: Package.swift Sources/**/*.swift
 	swift build -c release --arch arm64 --arch x86_64
 
-secret-keys.artifactbundle: .build/release/secret-keys LICENSE README.md
+secret-keys.artifactbundle: .build/release/secret-keys LICENCE README.md
 	rm -rf secret-keys.artifactbundle
 	mkdir -p $(ARTIFACT_BUNDLE)/secret-keys/bin
 	sed -e 's/__VERSION__/$(VERSION)/' $(ARTIFACT_BUNDLE_INFO_TEMPLATE) > $(ARTIFACT_BUNDLE)/info.json
